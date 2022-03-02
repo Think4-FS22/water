@@ -5,7 +5,7 @@ let v;
 let step = 5;
 let samples = 10;
 
-let n = 1000;
+let n = 10000;
 let drops = [];
 
 function preload() {
@@ -14,7 +14,7 @@ function preload() {
 
 function setup() {
   let ratio = img.width / img.height;
-  createCanvas(800, 800 / ratio);
+  createCanvas(1100, 1100 / ratio);
 
   console.log(img.width, img.height);
 
@@ -24,6 +24,7 @@ function setup() {
   }
 
   background(250);
+  angleMode(DEGREES);
   // image(img, 0, 0, width, height);
 }
 
@@ -50,6 +51,7 @@ class Drop {
     let samples = 10;
     let theta = 360 / samples;
     let minVal = 1000;
+
     let minPos = null;
     for (let i = 0; i < samples; i++) {
       let p2 = p5.Vector.add(this.position, this.velocity);
@@ -57,11 +59,12 @@ class Drop {
       let lookupY = map(p2.y, 0, height, 0, img.height);
       let col = img.get(lookupX, lookupY);
       let r = red(col);
+
       if (r < minVal) {
         minVal = r;
         minPos = p2;
       }
-      this.velocity.rotate(radians(theta));
+      this.velocity.rotate(theta);
       // console.log(r);
     }
     this.prevPos = this.position.copy();
@@ -69,7 +72,7 @@ class Drop {
   }
 
   display() {
-    stroke(0, 0, 0, 20);
+    stroke(0, 0, 0, 100);
     line(this.position.x, this.position.y, this.prevPos.x, this.prevPos.y);
   }
 }
