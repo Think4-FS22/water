@@ -65,7 +65,6 @@ class Drop {
         minPos = p2;
       }
       this.velocity.rotate(theta);
-      // console.log(r);
     }
     this.prevPos = this.position.copy();
     this.position = minPos;
